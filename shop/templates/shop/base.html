@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'admin/css/base.css' %}" rel='stylesheet'>
+</head>
+<body>
+<div id="header">
+    <a href="/" class="logo">My shop</a>
+</div>
+
+<div id="subheader">
+    {% if not cart %}
+    <div class="cart">You cart is empty.</div>
+    {% else %}
+    <a href="{% url 'cart:cart_detail' %}">Корзина :</a>
+    {{ cart|length }} pc{{cart|length|pluralize}}, ${{cart.get_total_price}}
+    {% endif %}
+</div>
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
