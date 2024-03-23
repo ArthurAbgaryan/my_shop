@@ -11,6 +11,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     paid=models.BooleanField(default=False) #этом  поле в дальнейш. будем исп-ть как "оплачено/неоплачено"
+    braintree_id = models.CharField(max_length=100, blank=True)
 
     class Meta:
         ordering = ('-created',)
@@ -19,7 +20,7 @@ class Order(models.Model):
 
 
     def get_total_cost(self):
-        return sum(item.get_cost for item in self.items.all())
+        return sum(item.get_cost() for item in self.items.all())
 
 
 '''Модель для сохранения данных каждого элемента корзины'''

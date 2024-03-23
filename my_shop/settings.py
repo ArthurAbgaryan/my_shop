@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'shop',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
     # 'sorl.thumbnail',
 ]
 
@@ -134,3 +135,19 @@ CART_SESSION_ID = 'cart' #ключ по котор. мы будем хранит
 
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+#braintree
+
+BRAINTREE_MERCHANT_ID = '3qm8b2srrvs3xmdq'
+BRAINTREE_PUBLIC_KEY = 'sv3bcb28wmgqctp3'
+BRAINTREE_PRIVATE_KEY = '7d2d5c355f3e59c011f3b8883e0a64e5'
+
+from braintree import Configuration, Environment
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+
+)
+#end braintree
