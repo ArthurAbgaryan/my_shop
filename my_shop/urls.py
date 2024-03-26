@@ -10,6 +10,7 @@ urlpatterns = [
     path('',include('shop.urls',namespace = 'shop')),
     path('cart/',include('cart.urls', namespace='cart')),
     path('order/', include('orders.urls', namespace='order')),
+    path('coupon/',include('coupon.urls',namespace='coupon')),
 
 
 

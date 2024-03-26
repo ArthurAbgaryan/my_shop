@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404,redirect
 from .cart import Cart
 from shop.models import Product
 from django.views.decorators.http import require_POST
+from coupon.forms import CouponApple
 
 '''Добавление товара '''
 @require_POST
@@ -34,5 +35,6 @@ def cart_detail(request):
     cart = Cart(request)
     for i in cart:
         i['qunty_form'] = CartAddProductForm(initial={'quantity': i['quantity'], 'update':True})
-    return render(request, 'cart/detail.html', {'cart_cart':cart})
+    coupon_form = CouponApple()
+    return render(request, 'cart/detail.html', {'cart_cart':cart, 'coupon_form':coupon_form})
 # Create your views here.

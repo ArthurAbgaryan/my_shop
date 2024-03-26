@@ -1,5 +1,8 @@
 from django.db import models
 from shop.models import Product
+from coupon.models import Coupon
+from django.core.validators import MinValueValidator,MaxValueValidator
+
 '''Модель сщхраняет данные о покупателе'''
 class Order(models.Model):
     first_name = models.CharField(max_length=50)
@@ -12,6 +15,8 @@ class Order(models.Model):
     update = models.DateTimeField(auto_now=True)
     paid=models.BooleanField(default=False) #этом  поле в дальнейш. будем исп-ть как "оплачено/неоплачено"
     braintree_id = models.CharField(max_length=100, blank=True)
+    coupon = models.ForeignKey(Coupon, related_name = 'coupon_order', on_delete=models.SET_NULL)
+    discount = models.IntegerField(validators=)
 
     class Meta:
         ordering = ('-created',)

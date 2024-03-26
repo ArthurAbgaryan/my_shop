@@ -41,13 +41,36 @@
     </tr>
     {% endwith %}
     {% endfor %}
+    {% if cart_cart.coupon %}
+    <tr class="subtotal">
+        <tb>Subtotal</tb>
+        <td colspan="4"></td>
+        <td class="num">${{cart_cart.get_total_price|floatformat:'2'}}</td>
+
+    </tr>
+    <tr>
+        <td>
+            "{{cart_cart.coupon.code}}" coupon
+            ({{cart_cart.coupon.discount}}% off)
+        </td>
+        <td colspan="4"></td>
+        <td class="num neg">-${{cart_cart.coupon_discounter|floatformat:"2"}}</td>
+    </tr>
+
+    {% endif %}
     <tr class="total" >
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num"> ${{cart.get_total_price}}</td>
+        <td class="num"> ${{cart_cart.total_price_with_discounter}}</td>
     </tr>
     </tbody>
 </table>
+<p>Apply a coupon</p>
+<form action="{% url 'coupon:coupon_apply' %}" method="post">
+    {% csrf_token %}
+    {{coupon_form}}
+    <input type="submit" value="Apply">
+</form>
 <p class="text-right">
     <a href="{% url 'shop:product_list' %}">Countinue shoping</a>
     <a href="{% url 'order:create_order' %}" class="button">Checkout</a>
